@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Your name">
+<meta name="description" content="Your description">
+<meta name="generator" content="Hugo 0.21" />
+<title>Visitas 360</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.min.js"></script>
+<!-- Favicon -->
+<link rel="shortcut icon" href="http://localhost/favicon.ico">
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet" href="http://localhost/css/bootstrap.min.css" type="text/css">
+<!-- Custom Fonts -->
+<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="http://localhost/font-awesome/css/font-awesome.min.css" type="text/css">
+<!-- Plugin CSS -->
+<link rel="stylesheet" href="http://localhost/css/animate.min.css" type="text/css">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="http://localhost/css/creative.css" type="text/css">
+<link rel="stylesheet" href="http://localhost/css/modals.css" type="text/css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+		<style>
+		#page-top{
+			padding-bottom: 0;
+			padding-top: 0;
+		}
+
+		.header-content {
+			position: relative;
+			padding-bottom: 0;
+			padding-top: 0;
+		    z-index: 1;
+		}
+		.pano {
+			padding-bottom: 0;
+			padding-top: 0;
+			color: #999999;
+			position: absolute;
+			z-index: -100;
+			top: 0;
+			left: 0;
+		}
+		
+		
+		body {
+		  overflow-x: hidden;
+		  background: #444;
+		  font-family: 'Raleway', sans-serif;
+		}
+
+		/* Toggle Styles */
+		.sidenav {
+		  height: 100%;
+		  width: 0;
+		  position: fixed;
+		  z-index: 2;
+		  top: 0;
+		  left: 0;
+		  background-color: #373839;
+		  overflow-x: hidden;
+		  transition: 0.5s;
+		  padding-top: 60px;
+		}
+
+		.sidenav h2 {
+		  font-size: 2.2em;
+		  text-align: center;
+		  color: #fff;
+		  margin-bottom: 0;
+		  font-weight: 800;
+		}
+
+		.sidenav p {
+		  font-size: 1em;
+		  text-align: center;
+		  color: #96c93d;
+		  margin-top: 0;
+		  margin-bottom: 2.5em;
+		  font-family: 'Raleway', sans-serif;
+		  font-weight: 100;
+		}
+
+		.sidenav .sidenavmenu a {
+		  padding: 8px 8px 8px 32px;
+		  text-decoration: none;
+		  font-size: 2em;
+		  display: block;
+		  transition: 0.3s;
+		}
+
+		.sidenav .sidenavmenu a:hover, .offcanvas .sidenavmenu a:focus {
+		  color: #f1f1f1;
+		}
+
+		.sidenav .sidenavsocial {
+		  width: 15%;
+		  margin: 1em auto;
+		}
+
+		.sidenav .sidenavsocial a {
+		  padding: 8px 8px 8px 16px;
+		  font-size: 2em;
+		  text-align: center;
+		  color: #818181;
+		  transition: 0.3s;
+		}
+
+		.sidenav .closebtn {
+		  position: absolute;
+		  top: 0;
+		  font-size: 3em;
+		  right: 0.5em;
+		  clear: both;
+		}
+
+		.divline {
+		  clear: both;
+		  height: 1px;
+		  background: #888;
+		  width: 20%;
+		  margin: 1em auto;
+		}
+
+		#main {
+		  z-index: 3;
+		  transition: margin-left .5s;
+		  padding: 16px;
+		}
+
+		.nav button.hamgurger {
+		  color: #fff;
+		  background: none;
+		  border: none;
+		  font-size: 30px;
+		  cursor: pointer;
+		}
+
+		.nav a {
+		  color: #fff;
+		  text-decoration: none;
+		  font-weight: 800;
+		}
+
+		.nav a:hover {
+		  color: #96c93d;
+		  text-decoration: none;
+		}
+
+		@media screen and (max-height: 350px) {
+		  .sidenav {
+			padding-top: 15px;
+		  }
+
+		  .sidenav a {
+			font-size: 18px;
+		  }
+		}
+		</style>
+    </head>
+    <body id="page-top">
+
+<div id="mySidenav" class="sidenav nav navbar-nav navbar-left">
+  <a rel="nofollow" rel="noreferrer"href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div class="sidenavmenu">
+    <a class="page-scroll" rel="nofollow" rel="noreferrer"href="#about">Sobre</a>
+    <a class="page-scroll" rel="nofollow" rel="noreferrer"href="#services">Serviços</a>
+    <a class="page-scroll" rel="nofollow" rel="noreferrer"href="#portfolio">Portfolio</a>
+    <a class="page-scroll" rel="nofollow" rel="noreferrer"href="#contact">Contactos</a>
+  </div>
+  <div class="sidenavsocial">
+    <a rel="nofollow" rel="noreferrer"href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> 
+    <a rel="nofollow" rel="noreferrer"href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> 
+    <a rel="nofollow" rel="noreferrer"href="#"><i class="fa fa-youtube-square" aria-hidden="true"></i></a> 
+    <a rel="nofollow" rel="noreferrer"href="#"><i class="fa fa-youtube-square" aria-hidden="true"></i></a> 
+  </div>
+</div>
+</div>
+</nav>
+	
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+    <h2>
+      <button class="hamgurger" onclick="openNav()">&#9776;</button>
+    <a class="page-scroll" rel="nofollow" rel="noreferrer" href="">Visitas 360</a>
+    </h2>
+  </div><!--/nav-->
+</nav> 
+
+    
+
+        
+            <!-- HEADER -->
+<header>
+<div id='pano'></div>
+	<div class="header-content">
+        <div class="header-content-inner">
+            
+                <h1>Re-descubra os locais do costume. Mergulhe na imersão do 360</h1>
+            
+            
+                <hr>
+            
+            
+                <p><a href="//google.com">Lorem</a> ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis nesciunt consequatur ut nihil voluptatem fugiat eos eveniet alias in veniam?</p>
+            
+            
+                <a href="#about" class="btn btn-primary btn-xl page-scroll">Descubra mais</a>
+            
+        </div>
+    </div>
+</header>
+
+        
+
+        
+            <!-- ABOUT -->
+<section class="bg-primary" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                
+                    <h2 class="section-heading">Portugal em 360</h2>
+                
+                
+                    <hr class="light">
+                
+                
+                    <p class="text-faded"><a href="//google.com">Lorem</a> ipsum dolor sit amet, consectetur adipisicing elit. Praesentium similique eos eligendi error veritatis harum, sed aliquid totam, quam minus neque enim est architecto, ad. Maiores, aliquid, vitae!</p>
+                
+                
+                    <a href="#" class="btn btn-default btn-xl">Iniciar</a>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+        
+
+        
+            <!-- SERVICES -->
+<section id="services">
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">At your service</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+    
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                    <h3>Sturdy Templates</h3>
+                    
+                        <p class="text-muted">Our templates are updated regularly so they don&#39;t break.</p>
+                    
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"></i>
+                    <h3>Ready to Ship</h3>
+                    
+                        <p class="text-muted">You can use this theme as is, or you can make changes!</p>
+                    
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary"></i>
+                    <h3>Up to Date</h3>
+                    
+                        <p class="text-muted">We update dependencies to keep things fresh.</p>
+                    
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-heart wow bounceIn text-primary"></i>
+                    <h3>Made with Love</h3>
+                    
+                        <p class="text-muted">You have to make your websites with love these days!</p>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+        
+
+        
+            <section class="no-padding" id="portfolio">
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#portfolioModal1" class="portfolio-box portfolio-link" data-toggle="modal">
+                        <img src="img/portfolio/1.jpg" class="img-responsive" alt="">
+                        
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    
+                                        <div class="project-category text-faded">
+                                            Web Development
+                                        </div>
+                                    
+                                    
+                                        <div class="project-name">
+                                            Project 1
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        
+                    </a>
+                </div>
+            
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#portfolioModal2" class="portfolio-box portfolio-link" data-toggle="modal">
+                        <img src="img/portfolio/2.jpg" class="img-responsive" alt="">
+                        
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    
+                                        <div class="project-category text-faded">
+                                            Web Development
+                                        </div>
+                                    
+                                    
+                                        <div class="project-name">
+                                            Project 2
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        
+                    </a>
+                </div>
+            
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#portfolioModal3" class="portfolio-box portfolio-link" data-toggle="modal">
+                        <img src="img/portfolio/3.jpg" class="img-responsive" alt="">
+                        
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    
+                                        <div class="project-category text-faded">
+                                            Web Development
+                                        </div>
+                                    
+                                    
+                                        <div class="project-name">
+                                            Project 3
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        
+                    </a>
+                </div>
+            
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#portfolioModal5" class="portfolio-box portfolio-link" data-toggle="modal">
+                        <img src="img/portfolio/5.jpg" class="img-responsive" alt="">
+                        
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    
+                                        <div class="project-category text-faded">
+                                            Web Development
+                                        </div>
+                                    
+                                    
+                                        <div class="project-name">
+                                            Project 5
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        
+                    </a>
+                </div>
+            
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#portfolioModal4" class="portfolio-box portfolio-link" data-toggle="modal">
+                        <img src="img/portfolio/4.jpg" class="img-responsive" alt="">
+                        
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    
+                                        <div class="project-category text-faded">
+                                            Web Development
+                                        </div>
+                                    
+                                    
+                                        <div class="project-name">
+                                            Project 4
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        
+                    </a>
+                </div>
+            
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#portfolioModal6" class="portfolio-box portfolio-link" data-toggle="modal">
+                        <img src="img/portfolio/6.jpg" class="img-responsive" alt="">
+                        
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    
+                                        <div class="project-category text-faded">
+                                            Web Development
+                                        </div>
+                                    
+                                    
+                                        <div class="project-name">
+                                            Project 6
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        
+                    </a>
+                </div>
+            
+        </div>
+    </div>
+</section>
+
+        
+
+        
+            
+
+<section id="location" class="no-padding">
+    <div class="hidden">
+        <input id="gmap-lat" value="38.693796" />
+        <input id="gmap-lng" value="-9.370611" />
+    </div>
+    <a href="https://www.google.com/maps?z=16&q=38.693796,-9.370611&ll=38.693796,-9.370611">
+        <div id="map">
+            &nbsp;
+        </div>
+    </a>
+</section>
+
+
+        
+
+        
+
+        
+            <!-- CONTACT -->
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                
+                    <h2 class="section-heading">Let&#39;s Get In Touch!</h2>
+                
+                
+                    <hr class="primary">
+                
+                
+                    <p>Ready to start your next project with us? That&rsquo;s great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                
+            </div>
+            
+                <div class="
+                
+                    col-lg-4
+                
+                col-lg-offset-2 text-center">
+                    <i class="fa fa-phone fa-3x wow bounceIn"></i>
+                    <p>123-456-6789</p>
+                </div>
+            
+            
+                <div class="
+                
+                    col-lg-4
+                
+                 text-center">
+                    <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                    <p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a></p>
+                </div>
+            
+        </div>
+    </div>
+</section>
+
+        
+
+        
+            <!-- Portfolio Modals -->
+
+<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        
+                            <h2>Project 1</h2>
+                        
+                        
+                            <hr class="star-primary">
+                        
+                        <img src="img/portfolio/1.jpg" class="img-responsive img-centered" alt="">
+                        
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel enim aliquid dicta ullam in repellendus amet perspiciatis adipisci architecto obcaecati sit voluptas ipsam, deleniti neque placeat tenetur cum tempore velit.</p>
+                        
+                        
+                            <ul class="list-inline item-details">
+                                
+                                    <li>Client: 
+                                        <strong><a href="#">Start Bootstrap</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Date: 
+                                        <strong><a href="#">2014-07-05</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Category: 
+                                        <strong><a href="#">Web Development</a></strong>
+                                    </li>
+                                
+                            </ul>
+                        
+                        
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        
+                            <h2>Project 2</h2>
+                        
+                        
+                            <hr class="star-primary">
+                        
+                        <img src="img/portfolio/2.jpg" class="img-responsive img-centered" alt="">
+                        
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel enim aliquid dicta ullam in repellendus amet perspiciatis adipisci architecto obcaecati sit voluptas ipsam, deleniti neque placeat tenetur cum tempore velit.</p>
+                        
+                        
+                            <ul class="list-inline item-details">
+                                
+                                    <li>Client: 
+                                        <strong><a href="#">Start Bootstrap</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Date: 
+                                        <strong><a href="#">2014-07-06</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Category: 
+                                        <strong><a href="#">Web Development</a></strong>
+                                    </li>
+                                
+                            </ul>
+                        
+                        
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        
+                            <h2>Project 3</h2>
+                        
+                        
+                            <hr class="star-primary">
+                        
+                        <img src="img/portfolio/3.jpg" class="img-responsive img-centered" alt="">
+                        
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel enim aliquid dicta ullam in repellendus amet perspiciatis adipisci architecto obcaecati sit voluptas ipsam, deleniti neque placeat tenetur cum tempore velit.</p>
+                        
+                        
+                            <ul class="list-inline item-details">
+                                
+                                    <li>Client: 
+                                        <strong><a href="#">Start Bootstrap</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Date: 
+                                        <strong><a href="#">2014-07-07</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Category: 
+                                        <strong><a href="#">Web Development</a></strong>
+                                    </li>
+                                
+                            </ul>
+                        
+                        
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        
+                            <h2>Project 5</h2>
+                        
+                        
+                            <hr class="star-primary">
+                        
+                        <img src="img/portfolio/5.jpg" class="img-responsive img-centered" alt="">
+                        
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel enim aliquid dicta ullam in repellendus amet perspiciatis adipisci architecto obcaecati sit voluptas ipsam, deleniti neque placeat tenetur cum tempore velit.</p>
+                        
+                        
+                            <ul class="list-inline item-details">
+                                
+                                    <li>Client: 
+                                        <strong><a href="#">Start Bootstrap</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Date: 
+                                        <strong><a href="#">2014-07-08</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Category: 
+                                        <strong><a href="#">Web Development</a></strong>
+                                    </li>
+                                
+                            </ul>
+                        
+                        
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        
+                            <h2>Project 4</h2>
+                        
+                        
+                            <hr class="star-primary">
+                        
+                        <img src="img/portfolio/4.jpg" class="img-responsive img-centered" alt="">
+                        
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel enim aliquid dicta ullam in repellendus amet perspiciatis adipisci architecto obcaecati sit voluptas ipsam, deleniti neque placeat tenetur cum tempore velit.</p>
+                        
+                        
+                            <ul class="list-inline item-details">
+                                
+                                    <li>Client: 
+                                        <strong><a href="#">Start Bootstrap</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Date: 
+                                        <strong><a href="#">2014-07-09</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Category: 
+                                        <strong><a href="#">Web Development</a></strong>
+                                    </li>
+                                
+                            </ul>
+                        
+                        
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        
+                            <h2>Project 6</h2>
+                        
+                        
+                            <hr class="star-primary">
+                        
+                        <img src="img/portfolio/6.jpg" class="img-responsive img-centered" alt="">
+                        
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel enim aliquid dicta ullam in repellendus amet perspiciatis adipisci architecto obcaecati sit voluptas ipsam, deleniti neque placeat tenetur cum tempore velit.</p>
+                        
+                        
+                            <ul class="list-inline item-details">
+                                
+                                    <li>Client: 
+                                        <strong><a href="#">Start Bootstrap</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Date: 
+                                        <strong><a href="#">2014-07-10</a></strong>
+                                    </li>
+                                
+                                
+                                    <li>Category: 
+                                        <strong><a href="#">Web Development</a></strong>
+                                    </li>
+                                
+                            </ul>
+                        
+                        
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+
+        <!-- jQuery -->
+<script src="http://localhost/js/jquery.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="http://localhost/js/bootstrap.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="http://localhost/js/jquery.easing.min.js"></script>
+<script src="http://localhost/js/jquery.fittext.js"></script>
+<script src="http://localhost/js/wow.min.js"></script>
+
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyC28L9vla16mBXOh9FNxrsyDq2Dv3_EceQ&v=3.exp"></script>
+<script src="http://localhost/js/hpneo.gmaps.js"></script>
+<script src="http://localhost/js/gmaps.init.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="http://localhost/js/creative.js"></script>
+<script>
+			
+			var manualControl = false;
+			var longitude = 0;
+			var latitude = 0;
+			var savedX;
+			var savedY;
+			var savedLongitude;
+			var savedLatitude;
+			
+			// panoramas background
+			var panoramasArray = ["/panos/01.jpg","/panos/02.jpg","/panos/03.jpg","/panos/04.jpg"];
+			var panoramaNumber = Math.floor(Math.random()*panoramasArray.length);
+
+			// setting up the renderer
+			renderer = new THREE.WebGLRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			//document.body.appendChild(renderer.domElement);
+			document.getElementById("pano").appendChild(renderer.domElement);
+			
+			// creating a new scene
+			var scene = new THREE.Scene();
+			
+			// adding a camera
+			var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+			camera.target = new THREE.Vector3(0, 0, 0);
+
+			// creation of a big sphere geometry
+			var sphere = new THREE.SphereGeometry(100, 100, 40);
+			sphere.applyMatrix(new THREE.Matrix4().makeScale(-1, 1, 1));
+
+			// creation of the sphere material
+			var sphereMaterial = new THREE.MeshBasicMaterial();
+			sphereMaterial.map = THREE.ImageUtils.loadTexture(panoramasArray[panoramaNumber])
+
+			// geometry + material = mesh (actual object)
+			var sphereMesh = new THREE.Mesh(sphere, sphereMaterial);
+			scene.add(sphereMesh);
+
+			// listeners
+			document.addEventListener("mousedown", onDocumentMouseDown, false);
+			document.addEventListener("mousemove", onDocumentMouseMove, false);
+			document.addEventListener("mouseup", onDocumentMouseUp, false);
+				
+               render();
+               
+               function render(){
+				
+				requestAnimationFrame(render);
+				
+				if(!manualControl){
+					longitude += 0.1;
+				}
+
+				// limiting latitude from -85 to 85 (cannot point to the sky or under your feet)
+                    latitude = Math.max(-85, Math.min(85, latitude));
+
+				// moving the camera according to current latitude (vertical movement) and longitude (horizontal movement)
+				camera.target.x = 500 * Math.sin(THREE.Math.degToRad(90 - latitude)) * Math.cos(THREE.Math.degToRad(longitude));
+				camera.target.y = 500 * Math.cos(THREE.Math.degToRad(90 - latitude));
+				camera.target.z = 500 * Math.sin(THREE.Math.degToRad(90 - latitude)) * Math.sin(THREE.Math.degToRad(longitude));
+				camera.lookAt(camera.target);
+
+				// calling again render function
+				renderer.render(scene, camera);
+				
+			}
+			
+			// when the mouse is pressed, we switch to manual control and save current coordinates
+			function onDocumentMouseDown(event){
+
+				event.preventDefault();
+
+				manualControl = true;
+
+				savedX = event.clientX;
+				savedY = event.clientY;
+
+				savedLongitude = longitude;
+				savedLatitude = latitude;
+
+			}
+
+			// when the mouse moves, if in manual contro we adjust coordinates
+			function onDocumentMouseMove(event){
+
+				if(manualControl){
+					longitude = (savedX - event.clientX) * 0.1 + savedLongitude;
+					latitude = (event.clientY - savedY) * 0.1 + savedLatitude;
+				}
+
+			}
+
+			// when the mouse is released, we turn manual control off
+			function onDocumentMouseUp(event){
+
+				manualControl = false;
+
+			}
+			
+			// pressing a key (actually releasing it) changes the texture map
+			document.onkeyup = function(event){
+			
+				//panoramaNumber = (panoramaNumber + 1) % panoramasArray.length
+				//sphereMaterial.map = THREE.ImageUtils.loadTexture(panoramasArray[panoramaNumber])
+			
+    			}
+			new THREEx.WindowResize(renderer, camera)
+
+		</script>
+<script>
+// Menu Toggle Script 
+function openNav() {
+  //document.getElementById("mySidenav").style.width = "100%";
+   document.getElementById("mySidenav").style.width = "200px";
+  // document.getElementById("main").style.marginLeft = "250px";
+}
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  // document.getElementById("mySidenav").style.width = "0";
+  // document.getElementById("main").style.marginLeft= "0";
+}
+
+// Menu Icon
+var button = document.querySelector('.menu-icon');
+button.addEventListener('click', function(){
+  button.classList.toggle('open');
+});
+jQuery(document).on('keyup',function(evt) {
+    if (evt.keyCode == 27) {
+       //alert('Esc key pressed.');
+	   closeNav();
+	   console.log("close nav with esc");
+    }
+});
+</script>
+        
+
+        
+    </body>
+</html>

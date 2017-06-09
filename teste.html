@@ -1,0 +1,32 @@
+<html>
+<head>
+<script language="javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+<script language="javascript">
+  $(document).ready(function() {
+  
+         $('.checkproduct').click(function(){
+				var totalAmount = 0;
+				$('.checkproduct').each(function() {
+						if($(this).attr('checked')){
+							totalAmount += parseInt($(this).val());
+						}
+				});
+				$('#totals').val(totalAmount);
+         });
+  });
+</script>  
+
+
+</head>
+<body>
+<form>
+<input class="checkproduct" type="checkbox" name="product1" value="50">Tratamento Imagem</input><br />
+<input class="checkproduct" type="checkbox" name="product2" value="60">Google Street View Tour</input><br />
+<input class="checkproduct" type="checkbox" name="product3" value="50">Google Street View Registration</input><br />
+<input class="checkproduct" type="checkbox" name="product4" value="50">Product 4 50</input><br />
+<input disabled checked="checked" class="checkproduct" type="checkbox" name="regfee" value="50">5 Fotos panoramicas - 50</input><br />
+<input type="text" id="totals" value="50">
+</form>
+</body>
+</html>
+

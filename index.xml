@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Visitas 360</title>
+    <link>http://localhost/</link>
+    <description>Recent content on Visitas 360</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 30 May 2017 10:44:29 +0100</lastBuildDate>
+    
+	<atom:link href="http://localhost/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>welcome</title>
+      <link>http://localhost/post/welcome/</link>
+      <pubDate>Tue, 30 May 2017 10:44:29 +0100</pubDate>
+      
+      <guid>http://localhost/post/welcome/</guid>
+      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac tellus interdum, hendrerit purus et, vehicula libero. Maecenas euismod risus placerat, lacinia ipsum in, pellentesque augue. Praesent at odio non quam tincidunt tristique. Sed metus risus, dignissim sit amet pharetra sit amet, aliquet sed mauris. Ut ut consectetur arcu. Nunc luctus quis eros at varius. Ut erat libero, ultricies vitae placerat vel, eleifend sit amet ligula. Maecenas vehicula leo et blandit bibendum.</description>
+    </item>
+    
+  </channel>
+</rss>
