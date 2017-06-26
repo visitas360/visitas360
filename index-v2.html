@@ -168,6 +168,21 @@
 		  }
 		}
 		</style>
+<script>
+			window.addEventListener( 'resize', onWindowResize, false );
+
+			function onWindowResize(){
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				render();
+				new THREEx.WindowResize(renderer, camera)
+
+			}
+</script>
+
     </head>
     <body id="page-top">
 
@@ -950,8 +965,8 @@
 			
     			}
 			new THREEx.WindowResize(renderer, camera)
-
 		</script>
+
 <script>
 // Menu Toggle Script 
 function openNav() {

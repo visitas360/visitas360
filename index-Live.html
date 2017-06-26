@@ -23,7 +23,6 @@
 <!-- Custom CSS -->
 <link rel="stylesheet" href="https://visitas360.github.io/visitas360/css/creative.css" type="text/css">
 <link rel="stylesheet" href="https://visitas360.github.io/visitas360/css/modals.css" type="text/css">
- <script src="js/three.min.js"></script> 
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,7 +40,7 @@
             position: relative;
         }
 
-		#mainNav{
+        .header-content {
             border: none !important;
             border-style: none!important;
             padding-bottom: 0;
@@ -52,58 +51,7 @@
 			/* transform: translate3d(0,0,1px); */
 			
         }
-		.navbar-default(
-			background:	none;
-			background-color: transparent;
-		)
-		.navbar-toggle(
-			z-index: 150
-		)
-		.container-fluid{
-            border: none !important;
-            border-style: none!important;
-            padding-bottom: 0;
-            padding-top: 0;
-			z-index: 100;
-            -webkit-transform: translateZ(1px);
-			/* -webkit-transform: translate3d(0,0,1px); */
-			/* transform: translate3d(0,0,1px); */
-			
-        }
-		.navbar-header{
-            border: none !important;
-            border-style: none!important;
-            padding-bottom: 0;
-            padding-top: 0;
-			z-index: 100;
-            -webkit-transform: translateZ(1px);
-			/* -webkit-transform: translate3d(0,0,1px); */
-			/* transform: translate3d(0,0,1px); */
-			
-        }
-		.navbar{
-            border: none !important;
-            border-style: none!important;
-            padding-bottom: 0;
-            padding-top: 0;
-			z-index: 100;
-            -webkit-transform: translateZ(1px);
-			/* -webkit-transform: translate3d(0,0,1px); */
-			/* transform: translate3d(0,0,1px); */
-			
-        }
-        .header-content{
-            border: none !important;
-            border-style: none!important;
-            padding-bottom: 0;
-            padding-top: 0;
-			z-index: 100;
-            -webkit-transform: translateZ(1px);
-			/* -webkit-transform: translate3d(0,0,1px); */
-			/* transform: translate3d(0,0,1px); */
-			
-        }
-        .pano .canvas {
+        .pano {
             border: none !important;
             border-style: none!important;
             padding-bottom: 0;
@@ -118,26 +66,11 @@
             left: 0;
         }
         </style>
-<script>
-			window.addEventListener( 'resize', onWindowResize, false );
-
-			function onWindowResize(){
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				render();
-				new THREEx.WindowResize(renderer, camera)
-
-			}
-</script>
-
     </head>
     <body id="page-top">
         
             <!-- NAVIGATION -->
-<nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="background:	none;background-color: transparent;">
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -187,21 +120,28 @@
         
             <!-- HEADER -->
 <header>
-    <div id='pano'>
-		<div class="header-content">
-			<div class="header-content-inner">
-					<h1>Re-descubra os locais do costume. Mergulhe na imersão do 360</h1>
-					<hr>
-					<p><a href="//google.com">Lorem</a> ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis nesciunt consequatur ut nihil voluptatem fugiat eos eveniet alias in veniam?</p>
-					<a href="#about" class="btn btn-primary btn-xl page-scroll">Descubra mais</a>
-			</div>
-		</div>
-	</div>
+    <div id='pano'></div>
+    <div class="header-content">
+        <div class="header-content-inner">
+            
+                <h1>Re-descubra os locais do costume. Mergulhe na imersão do 360</h1>
+            
+            
+                <hr>
+            
+            
+                <p><a href="//google.com">Lorem</a> ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis nesciunt consequatur ut nihil voluptatem fugiat eos eveniet alias in veniam?</p>
+            
+            
+                <a href="#about" class="btn btn-primary btn-xl page-scroll">Descubra mais</a>
+            
+        </div>
+    </div>
 </header>
 
         
 
-        <hr class="light">
+        
             <!-- ABOUT -->
 <section class="bg-primary" id="about">
     <div class="container">
@@ -226,7 +166,7 @@
 
         
 
-        <hr class="light">
+        
             <!-- SERVICES -->
 <section id="services">
     
@@ -431,10 +371,9 @@
 
         
 
-        <br>
-        <hr class="light">    
-		<br>
-		
+        
+            
+
 <section id="location" class="no-padding">
     <div class="hidden">
         <input id="gmap-lat" value="38.693796" />
@@ -807,7 +746,7 @@
         
 
         <!-- jQuery -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -822,115 +761,117 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="https://visitas360.github.io/visitas360/js/creative.js"></script>
-<script>
-			
-			var manualControl = false;
-			var longitude = 0;
-			var latitude = 0;
-			var savedX;
-			var savedY;
-			var savedLongitude;
-			var savedLatitude;
-			
-			// panoramas background
-			var panoramasArray = ["/panos/01.jpg","/panos/02.jpg","/panos/03.jpg","/panos/04.jpg"];
-			var panoramaNumber = Math.floor(Math.random()*panoramasArray.length);
 
-			// setting up the renderer
-			renderer = new THREE.WebGLRenderer();
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			//document.body.appendChild(renderer.domElement);
-			document.getElementById("pano").appendChild(renderer.domElement);
-			
-			// creating a new scene
-			var scene = new THREE.Scene();
-			
-			// adding a camera
-			var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
-			camera.target = new THREE.Vector3(0, 0, 0);
 
-			// creation of a big sphere geometry
-			var sphere = new THREE.SphereGeometry(100, 100, 40);
-			sphere.applyMatrix(new THREE.Matrix4().makeScale(-1, 1, 1));
+        
+            <script>
+            
+            var manualControl = false;
+            var longitude = 0;
+            var latitude = 0;
+            var savedX;
+            var savedY;
+            var savedLongitude;
+            var savedLatitude;
+            
+            
+            var panoramasArray = ["https://visitas360.github.io/visitas360/panos/01.jpg","https://visitas360.github.io/visitas360/panos/02.jpg","https://visitas360.github.io/visitas360/panos/03.jpg","https://visitas360.github.io/visitas360/panos/04.jpg"];
+            var panoramaNumber = Math.floor(Math.random()*panoramasArray.length);
 
-			// creation of the sphere material
-			var sphereMaterial = new THREE.MeshBasicMaterial();
-			sphereMaterial.map = THREE.ImageUtils.loadTexture(panoramasArray[panoramaNumber])
+            
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            document.getElementById("pano").appendChild(renderer.domElement);
+            
+            
+            var scene = new THREE.Scene();
+            
+            
+            var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.target = new THREE.Vector3(0, 0, 0);
 
-			// geometry + material = mesh (actual object)
-			var sphereMesh = new THREE.Mesh(sphere, sphereMaterial);
-			scene.add(sphereMesh);
+            
+            var sphere = new THREE.SphereGeometry(100, 100, 40);
+            sphere.applyMatrix(new THREE.Matrix4().makeScale(-1, 1, 1));
 
-			// listeners
-			document.addEventListener("mousedown", onDocumentMouseDown, false);
-			document.addEventListener("mousemove", onDocumentMouseMove, false);
-			document.addEventListener("mouseup", onDocumentMouseUp, false);
-				
+            
+            var sphereMaterial = new THREE.MeshBasicMaterial();
+            sphereMaterial.map = THREE.ImageUtils.loadTexture(panoramasArray[panoramaNumber])
+
+            
+            var sphereMesh = new THREE.Mesh(sphere, sphereMaterial);
+            scene.add(sphereMesh);
+
+            
+            document.addEventListener("mousedown", onDocumentMouseDown, false);
+            document.addEventListener("mousemove", onDocumentMouseMove, false);
+            document.addEventListener("mouseup", onDocumentMouseUp, false);
+                
                render();
                
                function render(){
-				
-				requestAnimationFrame(render);
-				
-				if(!manualControl){
-					longitude += 0.1;
-				}
+                
+                requestAnimationFrame(render);
+                
+                if(!manualControl){
+                    longitude += 0.1;
+                }
 
-				// limiting latitude from -85 to 85 (cannot point to the sky or under your feet)
+                
                     latitude = Math.max(-85, Math.min(85, latitude));
 
-				// moving the camera according to current latitude (vertical movement) and longitude (horizontal movement)
-				camera.target.x = 500 * Math.sin(THREE.Math.degToRad(90 - latitude)) * Math.cos(THREE.Math.degToRad(longitude));
-				camera.target.y = 500 * Math.cos(THREE.Math.degToRad(90 - latitude));
-				camera.target.z = 500 * Math.sin(THREE.Math.degToRad(90 - latitude)) * Math.sin(THREE.Math.degToRad(longitude));
-				camera.lookAt(camera.target);
+                
+                camera.target.x = 500 * Math.sin(THREE.Math.degToRad(90 - latitude)) * Math.cos(THREE.Math.degToRad(longitude));
+                camera.target.y = 500 * Math.cos(THREE.Math.degToRad(90 - latitude));
+                camera.target.z = 500 * Math.sin(THREE.Math.degToRad(90 - latitude)) * Math.sin(THREE.Math.degToRad(longitude));
+                camera.lookAt(camera.target);
 
-				// calling again render function
-				renderer.render(scene, camera);
-				
-			}
-			
-			// when the mouse is pressed, we switch to manual control and save current coordinates
-			function onDocumentMouseDown(event){
+                
+                renderer.render(scene, camera);
+                
+            }
+            
+            
+            function onDocumentMouseDown(event){
 
-				event.preventDefault();
+                event.preventDefault();
 
-				manualControl = true;
+                manualControl = true;
 
-				savedX = event.clientX;
-				savedY = event.clientY;
+                savedX = event.clientX;
+                savedY = event.clientY;
 
-				savedLongitude = longitude;
-				savedLatitude = latitude;
+                savedLongitude = longitude;
+                savedLatitude = latitude;
 
-			}
+            }
 
-			// when the mouse moves, if in manual contro we adjust coordinates
-			function onDocumentMouseMove(event){
+            
+            function onDocumentMouseMove(event){
 
-				if(manualControl){
-					longitude = (savedX - event.clientX) * 0.1 + savedLongitude;
-					latitude = (event.clientY - savedY) * 0.1 + savedLatitude;
-				}
+                if(manualControl){
+                    longitude = (savedX - event.clientX) * 0.1 + savedLongitude;
+                    latitude = (event.clientY - savedY) * 0.1 + savedLatitude;
+                }
 
-			}
+            }
 
-			// when the mouse is released, we turn manual control off
-			function onDocumentMouseUp(event){
+            
+            function onDocumentMouseUp(event){
 
-				manualControl = false;
+                manualControl = false;
 
-			}
-			
-			// pressing a key (actually releasing it) changes the texture map
-			document.onkeyup = function(event){
-			
-				//panoramaNumber = (panoramaNumber + 1) % panoramasArray.length
-				//sphereMaterial.map = THREE.ImageUtils.loadTexture(panoramasArray[panoramaNumber])
-			
-    			}
-			new THREEx.WindowResize(renderer, camera)
-		</script>
-
-	</body>
+            }
+            
+            
+            document.onkeyup = function(event){
+            
+                
+                
+            
+                }
+            
+        </script>
+    </body>
 </html>
